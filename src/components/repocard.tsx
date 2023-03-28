@@ -1,4 +1,5 @@
 import { Component } from "solid-js";
+import { favRepos, setFavRepos } from "../pages/favrepos";
 
 export type Repo = {
 	id: string,
@@ -15,6 +16,10 @@ interface Props {
 	repo: Repo
 }
 
+const makeFavRepo = (repo: Repo) => {
+	setFavRepos([repo, ...favRepos()])
+}
+
 const RepoCard: Component<Props> = ({ repo }) => {
 	return (
 		<div class="max-w-lg mt-4 rounded shadow-lg drop-shadow-lg hover:shadow-2xl hover:shadow-slate-900 overflow-hidden">
@@ -24,7 +29,7 @@ const RepoCard: Component<Props> = ({ repo }) => {
 					<strong class="text-blue-900 text-lg mb-2">{repo.owner?.login}/{repo.name}</strong>
 				</a>
 				<p class="text-sm pb-1">{repo.description}</p>
-				<button class="bg-orange-400 rounded py-1 px-2">Save</button>
+				<button class="bg-orange-400 rounded py-1 px-2" onclick={() => makeFavRepo(repo)}>Save</button>
 			</div>
 		</div>
 	)
