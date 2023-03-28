@@ -1,10 +1,20 @@
 import { Route, Routes } from '@solidjs/router';
-import type { Component } from 'solid-js';
+import { Component, createEffect, createSignal } from 'solid-js';
 import Nav from './components/nav';
 import FavRepos from './pages/favrepos';
 import Home from './pages/home';
 
+const [username, setUsername] = createSignal('coolabhays')
+const [repos, setRepos] = createSignal([])
+
 const App: Component = () => {
+
+	createEffect(async () => {
+		const res = await fetch(`https://api.github.com/users/${username()}/repos?sort=updated`)
+		setRepos(await res.json())
+		console.log(repos());
+	})
+
   return (
 	<div>
 		<Nav />
@@ -12,9 +22,9 @@ const App: Component = () => {
 			<Route path="/" element={ <Home /> }/>
 			<Route path="/fav" element={ <FavRepos /> }/>
 		</Routes>
-		<h1>App Component</h1>
 	</div>
   );
 };
 
+export { username, setUsername, repos }
 export default App;
