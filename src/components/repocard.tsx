@@ -1,30 +1,19 @@
 import { Component } from "solid-js";
 import { favRepos, setFavRepos } from "../pages/favrepos";
-
-export type Repo = {
-	id: string,
-	html_url: string,
-	name: string,
-	description: string,
-	stargazers_count: string,
-	owner: {
-		login: string
-	},
-	state: string,
-}
+import Repo from "../types/Repo";
 
 interface Props {
 	repo: Repo
 }
 
-let repoState: String = "Save"
-
 const makeFavRepo = (repo: Repo) => {
 	setFavRepos([repo, ...favRepos()])
+	localStorage.setItem('favRepos', JSON.stringify(favRepos()))
 }
 
 const removeFavRepo = (repoId: string) => {
 	setFavRepos(favRepos().filter(repo => repo.id !== repoId));
+	localStorage.setItem('favRepos', JSON.stringify(favRepos()))
 }
 
 const isRepoSaved = (repoId: string): boolean => {
