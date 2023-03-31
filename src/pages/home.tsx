@@ -12,7 +12,7 @@ const Home: Component = () => {
 	}
 
 	return (
-		<div class="ml-20 mt-5 pl-4">
+		<div class="ml-20 m-5 pl-4">
 			<label for="username-input" class="block text-sm font-medium leading-6 text-gray-900">Enter username: </label>
 			<div class="relative mt-2 rounded-md shadow-sm">
 				<form onsubmit={(event) => refetchWithUsername(event)}>
